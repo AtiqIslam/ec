@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block title %}Home - My E-commerce Site{% endblock %}
+
+{% block content %}
+<div class="welcome-section">
+  <h1>Welcome to Our E-commerce Store!</h1>
+  <p>Discover the best deals on a wide range of products. Shop now and enjoy exclusive discounts!</p>
+</div>
+
+<div class="featured-products">
+  <h2>Featured Products</h2>
+</div>
+
+<div class="product-grid">
+  {% for product in products %}
+    <div class="product-card">
+      <span class="discount">-{{ product.discount }}</span>
+
+      <img src="{% static product.image %}" alt="{{ product.name }}">
+
+      <h3>{{ product.name }}</h3>
+
+      <div class="price-box">
+        <span class="new-price">Tk {{ product.price }}</span>
+        <span class="old-price">Tk {{ product.old_price }}</span>
+      </div>
+
+      <div class="rating">
+        <span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span>({{ product.rating }})</span>
+      </div>
+
+      <form action="{% url 'add_to_cart' product.id %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% url 'home' %}">
+        <button type="submit">Add To Cart</button>
+      </form>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

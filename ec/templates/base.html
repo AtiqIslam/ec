@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block css %}{% endblock css %}
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <h2>MyShop</h2>
+            </a>
+        </div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Search products...">
+            <button type="button">Search</button>
+        </div>
+
+        <div class="right-menu">
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'cart' %}">Cart ({{ cart_count|default:0 }})</a>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 MyShop. All rights reserved.</p>
+    </footer>
+</body>
+</html>

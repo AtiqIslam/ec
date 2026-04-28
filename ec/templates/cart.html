@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/card.css' %}">
+{% endblock %}
+
+{% block title %}Cart - My E-commerce Site{% endblock %}
+
+{% block content %}
+<section class="cart-page">
+  <div class="cart-header">
+    <h1>Your Cart</h1>
+    <p>Review the products you added before checkout.</p>
+  </div>
+
+  {% if cart_items %}
+    <div class="cart-layout">
+      <div class="cart-items">
+        {% for item in cart_items %}
+          <article class="cart-item">
+            <img src="{% static item.image %}" alt="{{ item.name }}">
+            <div class="cart-item-details">
+              <h3>{{ item.name }}</h3>
+              <p>Price: Tk {{ item.price }}</p>
+              <p>Quantity: {{ item.quantity }}</p>
+              <p class="subtotal">Subtotal: Tk {{ item.subtotal }}</p>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <aside class="cart-summary">
+        <h2>Order Summary</h2>
+        <div class="summary-row">
+          <span>Total Items</span>
+          <span>{{ cart_count }}</span>
+        </div>
+        <div class="summary-row total-row">
+          <span>Total Price</span>
+          <span>Tk {{ cart_total }}</span>
+        </div>
+        <a class="checkout-button" href="{% url 'checkout' %}">Checkout</a>
+      </aside>
+    </div>
+  {% else %}
+    <div class="empty-cart">
+      <h2>Your cart is empty</h2>
+      <p>Add a product from the home page to continue.</p>
+      <a class="continue-shopping" href="{% url 'home' %}">Go to Home Page</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

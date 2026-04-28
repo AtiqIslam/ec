@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/card.css' %}">
+{% endblock %}
+
+{% block title %}Checkout - My E-commerce Site{% endblock %}
+
+{% block content %}
+<section class="cart-page">
+  <div class="cart-header">
+    <h1>Checkout</h1>
+    <p>Fill in delivery information and confirm your order.</p>
+  </div>
+
+  <form action="{% url 'confirm_order' %}" method="post" class="cart-layout">
+    {% csrf_token %}
+
+    <div class="checkout-left">
+      <div class="delivery-form">
+        <h2>Delivery Information</h2>
+
+        <div class="form-grid">
+          <div class="field-group">
+            <label for="customer_name">Name</label>
+            <input id="customer_name" name="customer_name" type="text" value="{{ form_data.customer_name|default:'' }}">
+            {% if form_errors.customer_name %}<small>{{ form_errors.customer_name }}</small>{% endif %}
+          </div>
+
+          <div class="field-group">
+            <label for="phone_number">Phone Number</label>
+            <input id="phone_number" name="phone_number" type="text" value="{{ form_data.phone_number|default:'' }}">
+            {% if form_errors.phone_number %}<small>{{ form_errors.phone_number }}</small>{% endif %}
+          </div>
+
+          <div class="field-group">
+            <label for="district">Zela / District</label>
+            <input id="district" name="district" type="text" value="{{ form_data.district|default:'' }}">
+            {% if form_errors.district %}<small>{{ form_errors.district }}</small>{% endif %}
+          </div>
+
+          <div class="field-group">
+            <label for="thana">Thana</label>
+            <input id="thana" name="thana" type="text" value="{{ form_data.thana|default:'' }}">
+            {% if form_errors.thana %}<small>{{ form_errors.thana }}</small>{% endif %}
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="address">Full Address</label>
+          <textarea id="address" name="address" rows="4">{{ form_data.address|default:'' }}</textarea>
+          {% if form_errors.address %}<small>{{ form_errors.address }}</small>{% endif %}
+        </div>
+      </div>
+
+      <div class="cart-items">
+        {% for item in cart_items %}
+          <article class="cart-item">
+            <img src="{% static item.image %}" alt="{{ item.name }}">
+            <div class="cart-item-details">
+              <h3>{{ item.name }}</h3>
+              <p>Price: Tk {{ item.price }}</p>
+              <p>Quantity: {{ item.quantity }}</p>
+              <p class="subtotal">Subtotal: Tk {{ item.subtotal }}</p>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+
+    <aside class="cart-summary">
+      <h2>Confirm Order</h2>
+      <div class="summary-row">
+        <span>Total Items</span>
+        <span>{{ cart_count }}</span>
+      </div>
+      <div class="summary-row total-row">
+        <span>Total Price</span>
+        <span>Tk {{ cart_total }}</span>
+      </div>
+      <button class="checkout-button" type="submit">Confirm Order</button>
+    </aside>
+  </form>
+</section>
+{% endblock %}

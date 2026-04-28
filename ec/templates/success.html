@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/success.css' %}">
+{% endblock %}
+
+{% block content %}
+  <section class="success-page">
+    <div class="success-container">
+      <div class="success-badge">Success</div>
+      <h2>{{ title }}</h2>
+      <p>{{ message }}</p>
+      {% if order_number %}
+        <div class="order-number">Order Number: <strong>{{ order_number }}</strong></div>
+      {% endif %}
+      {% if customer_name %}
+        <div class="delivery-info">
+          <h3>Delivery Details</h3>
+          <p><strong>Name:</strong> {{ customer_name }}</p>
+          <p><strong>Phone:</strong> {{ phone_number }}</p>
+          <p><strong>District:</strong> {{ district }}</p>
+          <p><strong>Thana:</strong> {{ thana }}</p>
+          <p><strong>Address:</strong> {{ address }}</p>
+        </div>
+      {% endif %}
+      <p class="success-details">{{ details }}</p>
+      <a class="success-link" href="{% url button_url %}">{{ button_text }}</a>
+    </div>
+  </section>
+{% endblock %}

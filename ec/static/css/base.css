@@ -1,0 +1,63 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 30px;
+    background-color: #111;
+    color: white;
+}
+
+/* Logo */
+.logo h2 {
+    margin: 0;
+    color: #ffcc00;
+}
+.logo a{
+   text-decoration:none;
+   color:#ffcc00;
+}
+
+.logo a:hover{
+   color:white;
+}
+
+/* Search */
+.search-box {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.search-box input {
+    width: 60%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-box button {
+    padding: 8px 15px;
+    border: none;
+    background: #ffcc00;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+}
+
+/* Right Menu */
+.right-menu {
+    display: flex;
+    gap: 15px;
+}
+
+.right-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    background: #333;
+    border-radius: 5px;
+}
+
+.right-menu a:hover {
+    background: #ffcc00;
+    color: black;
+}

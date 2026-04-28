@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block title %}Form{% endblock %}
+
+{% block content %}
+<div>
+   <h2>Register Account</h2>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-group">
+        {{ field.label_tag }}
+        {{ field }}
+        {% if field.errors %}
+          <div class="alert alert-danger">
+            {{ field.errors | striptags }}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <p>login <a href="{% url 'login' %}">login here</a></p>
+  </div>
+{% endblock %}
