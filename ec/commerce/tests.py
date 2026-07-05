@@ -19,6 +19,14 @@ class CartFlowTests(TestCase):
         self.assertRedirects(response, reverse("home"))
         self.assertEqual(self.client.session["cart"]["panjabi-1"], 1)
 
+    def test_home_search_filters_products(self):
+        response = self.client.get(reverse("home"), {"q": "Black"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Elegant Black Panjabi")
+        self.assertNotContains(response, "Classic Eid Panjabi")
+        self.assertContains(response, 'Search Results for "Black"')
+
     def test_checkout_and_confirm_order_flow(self):
         self.client.post(reverse("add_to_cart", args=["panjabi-1"]))
         cart_response = self.client.get(reverse("cart"))

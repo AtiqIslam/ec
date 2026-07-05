@@ -109,7 +109,22 @@ def build_cart_items(request):
 
 
 def base_context(request):
-    return {"cart_count": get_cart_count(request)}
+    return {
+        "cart_count": get_cart_count(request),
+        "search_query": request.GET.get("q", "").strip(),
+    }
+
+
+def filter_products(query):
+    if not query:
+        return PRODUCTS
+
+    normalized_query = query.lower()
+    return [
+        product
+        for product in PRODUCTS
+        if normalized_query in product["name"].lower()
+    ]
 
 
 def build_checkout_context(request, cart_items, form_data=None, errors=None):
@@ -124,9 +139,12 @@ def build_checkout_context(request, cart_items, form_data=None, errors=None):
 
 
 def home(request):
+    query = request.GET.get("q", "").strip()
+    filtered_products = filter_products(query)
     context = {
         **base_context(request),
-        "products": PRODUCTS,
+        "products": filtered_products,
+        "results_count": len(filtered_products),
     }
     return render(request, "home.html", context)
 

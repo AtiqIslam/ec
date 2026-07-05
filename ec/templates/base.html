@@ -16,10 +16,10 @@
             </a>
         </div>
 
-        <div class="search-box">
-            <input type="text" placeholder="Search products...">
-            <button type="button">Search</button>
-        </div>
+        <form class="search-box" action="{% url 'home' %}" method="get">
+            <input type="text" name="q" placeholder="Search products..." value="{{ search_query|default:'' }}">
+            <button type="submit">Search</button>
+        </form>
 
         <div class="right-menu">
             <a href="{% url 'login' %}">Login</a>
@@ -33,7 +33,36 @@
     </main>
 
     <footer class="footer">
-        <p>&copy; 2026 MyShop. All rights reserved.</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>MyShop</h3>
+                <p>Your trusted online store for stylish fashion and everyday shopping essentials.</p>
+                <div class="footer-highlights">
+                    <span>Secure Shopping</span>
+                    <span>Fast Delivery</span>
+                    <span>Easy Checkout</span>
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Customer Care</h4>
+                <p>Email: support@myshop.com</p>
+                <p>Phone: +880 1700-000000</p>
+                <p>Hours: 9:00 AM - 10:00 PM</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'cart' %}">Cart</a>
+                <a href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 MyShop. All rights reserved.</p>
+            <p>Made for simple online shopping with Django.</p>
+        </div>
     </footer>
 </body>
 </html>

@@ -20,7 +20,7 @@ class Order(models.Model):
         blank=True,
     )
     customer_name = models.CharField(max_length=120)
-    phone_number = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=20 )
     district = models.CharField(max_length=80)
     thana = models.CharField(max_length=80)
     address = models.TextField()
